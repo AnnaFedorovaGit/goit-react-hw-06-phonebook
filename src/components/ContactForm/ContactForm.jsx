@@ -1,10 +1,14 @@
+// import { useDispatch } from "react-redux"
+// import { addContact } from "../../redux/contactsSlice"
 import css from './ContactForm.module.css'
 
 
 const ContactForm = ({ createContact }) => { 
-
+	// const dispatch = useDispatch();
+	
 	const handleSubmit = (e) => {
 		e.preventDefault();
+	
 		createContact(e.target[0].value, e.target[1].value);
 
 		e.target[0].value = '';
