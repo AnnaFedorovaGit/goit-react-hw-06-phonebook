@@ -10,10 +10,7 @@ import css from './ContactForm.module.css'
 	const dispatch = useDispatch();
 	const contacts = useSelector(getContacts);
 
-	// const createContact = (name, number) => {
 	 const createContact = (e) => {
-	// 	 const submitForm = (values, actions) => {
-    	// actions.resetForm();
 		e.preventDefault();
 		 
 		const name = e.target[0].value;
