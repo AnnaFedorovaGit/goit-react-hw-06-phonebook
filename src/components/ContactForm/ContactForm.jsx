@@ -1,22 +1,43 @@
-// import { useDispatch } from "react-redux"
-// import { addContact } from "../../redux/contactsSlice"
+import { useDispatch, useSelector } from 'react-redux'
+import { addContact } from '../../redux/contactsSlice'
+import { getContacts } from '../../redux/selectors'
+import { nanoid } from 'nanoid'
+
 import css from './ContactForm.module.css'
 
 
-const ContactForm = ({ createContact }) => { 
-	// const dispatch = useDispatch();
-	
-	const handleSubmit = (e) => {
-		e.preventDefault();
-	
-		createContact(e.target[0].value, e.target[1].value);
+ const ContactForm = () => { 
+	const dispatch = useDispatch();
+	const contacts = useSelector(getContacts);
 
+	// const createContact = (name, number) => {
+	 const createContact = (e) => {
+	// 	 const submitForm = (values, actions) => {
+    	// actions.resetForm();
+		e.preventDefault();
+		 
+		const name = e.target[0].value;
+		const number = e.target[1].value;
+
+		const newContact = {
+			name: name,
+			number: number,
+			id: nanoid(),
+		}
+
+		const isDuplicated = contacts.find((el) => el.name === name && el.number === number)
+		if (isDuplicated) {
+			return alert(`${name} is already in contacts.`)
+		}
+			
+		dispatch(addContact(newContact));
+		 
 		e.target[0].value = '';
 		e.target[1].value = '';	
-    }
+	}
     
 	return (
-		<form onSubmit={handleSubmit} className={css.form}>
+		<form onSubmit={createContact} className={css.form}>
 			<div className={css.wrapper}>
 				<label className={css.formLabel}>
 					Name
